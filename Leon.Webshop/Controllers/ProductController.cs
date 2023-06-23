@@ -1,5 +1,6 @@
 ﻿using Leon.Webshop.Models;
 using Leon.Webshop.Services;
+using Leon.Webshop.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Leon.Webshop.Controllers
@@ -17,7 +18,18 @@ namespace Leon.Webshop.Controllers
         {
             var products = await _unitOfWork.ProductRepository.GetAll();
 
-            return View(products[0]);
+            IndexViewModel viewModel = new IndexViewModel(products);
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            var product = await _unitOfWork.ProductRepository.GetById(id);
+
+            DetailsViewModel viewModel = new DetailsViewModel(product);
+
+            return View(viewModel);
         }
     }
 }
