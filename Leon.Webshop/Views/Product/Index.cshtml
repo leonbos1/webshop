@@ -5,7 +5,7 @@
     <!--show products with cards-->
     <div class="card-body">
         <h5 class="card-title">@product.Name</h5>
-        <p class="card-text">@product.Price</p>
+        <p class="card-text">Price: $@product.Price</p>
         <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Details</a>
     </div>
 }

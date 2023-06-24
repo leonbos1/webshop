@@ -12,6 +12,8 @@ public class ShopContext : DbContext
     // DbSet properties for your database tables
     public DbSet<Product> Product { get; set; }
 
+    public DbSet<Category> Category { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Configure your entity mappings and relationships here (if needed)

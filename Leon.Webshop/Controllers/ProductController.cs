@@ -31,5 +31,14 @@ namespace Leon.Webshop.Controllers
 
             return View(viewModel);
         }
+
+        public async Task<IActionResult> Buy(int id)
+        {
+            var product = await _unitOfWork.ProductRepository.GetById(id);
+
+            DetailsViewModel viewModel = new DetailsViewModel(product);
+
+            return View(viewModel);
+        }
     }
 }

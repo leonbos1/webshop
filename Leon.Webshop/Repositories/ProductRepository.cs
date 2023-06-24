@@ -14,12 +14,18 @@ namespace Leon.Webshop.Repositories
 
         public async Task<List<Product>> GetAll()
         {
-            return await _context.Product.ToListAsync();
+            var products = await _context.Product.ToListAsync();
+
+            return products;
         }
 
         public async Task<Product> GetById(int id)
         {
-            return await _context.Product.FindAsync(id);
+            var product = await _context.Product.FindAsync(id);
+
+            product.Category = await _context.Category.FindAsync(product.CategoryId);
+
+            return product;
         }
 
         public async Task<Product> Create(Product product)
