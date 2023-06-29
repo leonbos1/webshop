@@ -14,6 +14,10 @@ public class ShopContext : DbContext
 
     public DbSet<Category> Category { get; set; }
 
+    public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
+    public DbSet<Visitor> Visitor { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Configure your entity mappings and relationships here (if needed)

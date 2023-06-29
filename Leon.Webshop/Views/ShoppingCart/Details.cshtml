@@ -1,0 +1,17 @@
+﻿@model Leon.Webshop.ViewModels.ShoppingCarts.DetailsViewModel
+
+<div class="card-body">
+
+    <h5 class="card-title">@Model.ShoppingCart.Product.Name</h5>
+
+    <p class="card-text">@Model.ShoppingCart.Product.Description</p>
+
+    <p class="card-text">Price: $@Model.ShoppingCart.Product.Price</p>
+
+    <p class="card-text">Category: @Model.ShoppingCart.Product.Category?.Name</p>
+
+    <a href="@Url.Action("Buy", "ShoppingCart")" class="btn btn-primary">Buy</a>
+
+    <a href="@Url.Action("Index", "ShoppingCart")" class="btn btn-primary">Back</a>
+
+</div>

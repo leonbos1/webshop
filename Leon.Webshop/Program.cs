@@ -14,7 +14,18 @@ builder.Services.AddDbContext<ShopContext>(options =>
 
 builder.Services.AddScoped<ProductRepository>();
 
+builder.Services.AddScoped<ShoppingCartRepository>();
+
+builder.Services.AddScoped<VisitorRepository>();
+
 builder.Services.AddScoped<UnitOfWork>();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -32,6 +43,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",

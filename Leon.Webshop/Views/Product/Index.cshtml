@@ -1,11 +1,12 @@
 ﻿@model Leon.Webshop.ViewModels.Products.IndexViewModel
-
-@foreach (var product in Model.Products)
-{
-    <!--show products with cards-->
-    <div class="card-body">
-        <h5 class="card-title">@product.Name</h5>
-        <p class="card-text">Price: $@product.Price</p>
-        <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Details</a>
-    </div>
-}
+<div class=" flex-md-wrap">
+    @foreach (var product in Model.Products)
+    {
+        <div class="card-body border-1">
+            <h5 class="card-title">@product.Name</h5>
+            <p class="card-text">Price: $@product.Price</p>
+            <p class="card-text">@product.Stock items in stock</p>
+            <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Details</a>
+        </div>
+    }
+</div>
