@@ -44,6 +44,11 @@ namespace Leon.Webshop.Controllers
                 return NotFound();
             }
 
+            if (product.Stock == 0)
+            {
+                return RedirectToAction("Index");
+            }
+
             var sessionId = HttpContext.Session.Id;
 
             var visitor = await _visitorService.GetVisitor(sessionId);
@@ -69,6 +74,10 @@ namespace Leon.Webshop.Controllers
 
                 await _unitOfWork.ShoppingCartRepository.Update(shoppingCart);
             }
+
+            product.Stock--;
+
+            await _unitOfWork.ProductRepository.Update(product);
 
             return RedirectToAction("Index");
         }
