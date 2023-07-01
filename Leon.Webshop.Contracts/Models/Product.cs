@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Leon.Webshop.Models
+namespace Leon.Webshop.Contracts.Models
 {
     public class Product
     {

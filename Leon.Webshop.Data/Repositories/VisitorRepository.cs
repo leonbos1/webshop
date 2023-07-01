@@ -1,7 +1,7 @@
-﻿using Leon.Webshop.Models;
+﻿using Leon.Webshop.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Leon.Webshop.Repositories
+namespace Leon.Webshop.Data.Repositories
 {
     public class VisitorRepository
     {

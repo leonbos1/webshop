@@ -1,17 +1,20 @@
-﻿using Leon.Webshop.Models;
+﻿using Leon.Webshop.Contracts.Models;
 using Leon.Webshop.Services;
-using Leon.Webshop.ViewModels.Products;
+using Leon.Webshop.Contracts.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
+using Leon.Webshop.Logic.Helpers;
 
 namespace Leon.Webshop.Controllers
 {
     public class ProductController : Controller
     {
         UnitOfWork _unitOfWork;
+        VisitorService _visitorService;
 
-        public ProductController(UnitOfWork unitOfWork)
+        public ProductController(UnitOfWork unitOfWork, VisitorService visitorService)
         {
             _unitOfWork = unitOfWork;
+            _visitorService = visitorService;
         }
 
         public async Task<IActionResult> Index()
@@ -36,46 +39,38 @@ namespace Leon.Webshop.Controllers
         {
             var product = await _unitOfWork.ProductRepository.GetById(id);
 
-            var visitorId = HttpContext.Session.GetString("VisitorId");
-
-            if (visitorId == null)
+            if (product == null)
             {
-                Visitor visitor = new Visitor
-                {
-                    SessionId = HttpContext.Session.Id,
-                    CreatedAt = DateTime.Now
-                };
-
-                await _unitOfWork.VisitorRepository.Add(visitor);
-
-                visitorId = visitor.Id.ToString();
-
-                HttpContext.Session.SetString("VisitorId", visitorId.ToString());
+                return NotFound();
             }
 
-            var shoppingCart = await _unitOfWork.ShoppingCartRepository.GetByVisitorId(Guid.Parse(visitorId));
+            var sessionId = HttpContext.Session.Id;
 
-            if (shoppingCart.Any(x => x.ProductId == product.Id))
+            var visitor = await _visitorService.GetVisitor(sessionId);
+
+            HttpContext.Session.SetString("VisitorId", visitor.Id.ToString());
+
+            var shoppingCart = await _unitOfWork.ShoppingCartRepository.GetByVisitorAndProduct(visitor, product);
+
+            if (shoppingCart == null)
             {
-                var shoppingCartProduct = shoppingCart.FirstOrDefault(x => x.ProductId == product.Id);
+                ShoppingCart newShoppingCart = new ShoppingCart
+                {
+                    VisitorId = visitor.Id,
+                    ProductId = product.Id,
+                    Quantity = 1
+                };
 
-                shoppingCartProduct.Quantity++;
-
-                await _unitOfWork.ShoppingCartRepository.Update(shoppingCartProduct);
+                await _unitOfWork.ShoppingCartRepository.Create(newShoppingCart);
             }
             else
             {
-                ShoppingCart shoppingCartProduct = new ShoppingCart
-                {
-                    ProductId = product.Id,
-                    Quantity = 1,
-                    VisitorId = Guid.Parse(visitorId)
-                };
+                shoppingCart.Quantity++;
 
-                await _unitOfWork.ShoppingCartRepository.Create(shoppingCartProduct);
+                await _unitOfWork.ShoppingCartRepository.Update(shoppingCart);
             }
 
-            return RedirectToAction("Index", "Product");
+            return RedirectToAction("Index");
         }
     }
 }

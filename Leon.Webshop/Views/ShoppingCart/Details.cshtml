@@ -1,17 +1,24 @@
-﻿@model Leon.Webshop.ViewModels.ShoppingCarts.DetailsViewModel
+﻿@model Leon.Webshop.Contracts.ViewModels.ShoppingCarts.DetailsViewModel
 
-<div class="card-body">
+@{
+    ViewBag.Title = "Shopping Cart";
+}
 
-    <h5 class="card-title">@Model.ShoppingCart.Product.Name</h5>
-
-    <p class="card-text">@Model.ShoppingCart.Product.Description</p>
-
-    <p class="card-text">Price: $@Model.ShoppingCart.Product.Price</p>
-
-    <p class="card-text">Category: @Model.ShoppingCart.Product.Category?.Name</p>
-
-    <a href="@Url.Action("Buy", "ShoppingCart")" class="btn btn-primary">Buy</a>
-
-    <a href="@Url.Action("Index", "ShoppingCart")" class="btn btn-primary">Back</a>
-
-</div>
+@foreach (var item in Model.shoppingCarts)
+{
+    <div>
+        <h4>Shopping Cart</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dd>
+                @Html.DisplayFor(modelItem => item.Product.Name)
+            </dd>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Product.Price)
+            </dd>
+            <dd>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </dd>
+        </dl>
+    </div>
+}

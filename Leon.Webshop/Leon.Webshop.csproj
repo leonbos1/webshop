@@ -32,4 +32,9 @@
     <Folder Include="wwwroot\lib\jquery\dist\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Leon.Webshop.Contracts\Leon.Webshop.Contracts.csproj" />
+    <ProjectReference Include="..\Leon.Webshop.Logic\Leon.Webshop.Logic.csproj" />
+  </ItemGroup>
+
 </Project>

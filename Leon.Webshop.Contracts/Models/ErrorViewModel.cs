@@ -1,4 +1,4 @@
-namespace Leon.Webshop.Models
+namespace Leon.Webshop.Contracts.Models
 {
     public class ErrorViewModel
     {

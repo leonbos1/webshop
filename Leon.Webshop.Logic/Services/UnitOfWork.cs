@@ -1,4 +1,4 @@
-﻿using Leon.Webshop.Repositories;
+﻿using Leon.Webshop.Data.Repositories;
 
 namespace Leon.Webshop.Services
 {

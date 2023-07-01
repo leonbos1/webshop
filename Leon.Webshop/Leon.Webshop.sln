@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop", "Leon.Webshop.csproj", "{AB716668-91E5-4E79-B6E5-333A27746F0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leon.Webshop", "Leon.Webshop.csproj", "{AB716668-91E5-4E79-B6E5-333A27746F0C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Contracts", "..\Leon.Webshop.Contracts\Leon.Webshop.Contracts.csproj", "{E96D6E97-65E4-4413-88E4-CB936123FED4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Data", "..\Leon.Webshop.Data\Leon.Webshop.Data.csproj", "{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Logic", "..\Leon.Webshop.Logic\Leon.Webshop.Logic.csproj", "{745375B7-2BAD-4ADA-B606-728F9FE4B64E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,18 @@ Global
 		{AB716668-91E5-4E79-B6E5-333A27746F0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB716668-91E5-4E79-B6E5-333A27746F0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB716668-91E5-4E79-B6E5-333A27746F0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E96D6E97-65E4-4413-88E4-CB936123FED4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E96D6E97-65E4-4413-88E4-CB936123FED4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E96D6E97-65E4-4413-88E4-CB936123FED4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E96D6E97-65E4-4413-88E4-CB936123FED4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{745375B7-2BAD-4ADA-B606-728F9FE4B64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{745375B7-2BAD-4ADA-B606-728F9FE4B64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{745375B7-2BAD-4ADA-B606-728F9FE4B64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{745375B7-2BAD-4ADA-B606-728F9FE4B64E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

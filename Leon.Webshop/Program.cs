@@ -1,7 +1,7 @@
-using Leon.Webshop.Models;
-using Leon.Webshop.Repositories;
+using Leon.Webshop.Data;
+using Leon.Webshop.Data.Repositories;
+using Leon.Webshop.Logic.Helpers;
 using Leon.Webshop.Services;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +12,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<VisitorService>();
+
 builder.Services.AddScoped<ProductRepository>();
 
 builder.Services.AddScoped<ShoppingCartRepository>();
@@ -19,6 +21,8 @@ builder.Services.AddScoped<ShoppingCartRepository>();
 builder.Services.AddScoped<VisitorRepository>();
 
 builder.Services.AddScoped<UnitOfWork>();
+
+
 
 builder.Services.AddSession(options =>
 {

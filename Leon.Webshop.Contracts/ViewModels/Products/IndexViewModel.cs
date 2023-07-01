@@ -1,6 +1,6 @@
-﻿using Leon.Webshop.Models;
+﻿using Leon.Webshop.Contracts.Models;
 
-namespace Leon.Webshop.ViewModels.Products
+namespace Leon.Webshop.Contracts.ViewModels.Products
 {
     public class IndexViewModel
     {

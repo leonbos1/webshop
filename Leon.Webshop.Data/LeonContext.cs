@@ -1,7 +1,7 @@
-﻿namespace Leon.Webshop.Models;
+﻿namespace Leon.Webshop.Data;
+
+using Leon.Webshop.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 public class ShopContext : DbContext
 {

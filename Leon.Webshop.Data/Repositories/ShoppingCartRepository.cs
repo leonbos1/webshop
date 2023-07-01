@@ -1,7 +1,7 @@
-﻿using Leon.Webshop.Models;
+﻿using Leon.Webshop.Contracts.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Leon.Webshop.Repositories
+namespace Leon.Webshop.Data.Repositories
 {
     public class ShoppingCartRepository
     {
@@ -28,7 +28,7 @@ namespace Leon.Webshop.Repositories
             return shoppingCart;
         }
 
-        public async Task<List<ShoppingCart>> GetByVisitorId(Guid visitorId)
+        public async Task<List<ShoppingCart>> GetProductsByVisitorId(Guid visitorId)
         {
             var shoppingCarts = await _context.ShoppingCart.Where(x => x.VisitorId == visitorId).ToListAsync();
 
@@ -38,6 +38,25 @@ namespace Leon.Webshop.Repositories
             }
 
             return shoppingCarts;
+        }
+
+        public async Task<List<ShoppingCart>> GetShoppingCartsByVisitorId(Guid visitorId)
+        {
+            var shoppingCarts = await _context.ShoppingCart.Where(x => x.VisitorId == visitorId).ToListAsync();
+
+            foreach (var shoppingCart in shoppingCarts)
+            {
+                shoppingCart.Product = await _context.Product.FindAsync(shoppingCart.ProductId);
+            }
+
+            return shoppingCarts;
+        }
+
+        public async Task<ShoppingCart?> GetByVisitorAndProduct(Visitor visitor, Product product)
+        {
+            var shoppingCart = await _context.ShoppingCart.FirstOrDefaultAsync(x => x.VisitorId == visitor.Id && x.ProductId == product.Id);
+
+            return shoppingCart;
         }
 
         public async Task<ShoppingCart> Create(ShoppingCart shoppingCart)
