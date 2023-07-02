@@ -1,4 +1,21 @@
 ﻿@model Leon.Webshop.Contracts.ViewModels.Products.IndexViewModel
+
+<!--select dropdown with categories-->
+@using (Html.BeginForm("Index", "Product", FormMethod.Get))
+{
+    <div class="form-group">
+        <label for="categoryId">Category</label>
+        <select class="form-control" id="categoryId" name="categoryId">
+            <option value="">All</option>
+            @foreach (var category in Model.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+}
+
 <div class=" flex-md-wrap">
     @foreach (var product in Model.Products)
     {

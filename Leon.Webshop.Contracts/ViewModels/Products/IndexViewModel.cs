@@ -6,9 +6,12 @@ namespace Leon.Webshop.Contracts.ViewModels.Products
     {
         public List<Product> Products { get; set; }
 
-        public IndexViewModel(List<Product> products)
+        public List<Category> Categories { get; set; }
+
+        public IndexViewModel(List<Product> products, List<Category> categories)
         {
             this.Products = products;
+            Categories = categories;
         }
     }
 }

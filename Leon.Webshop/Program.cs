@@ -20,6 +20,8 @@ builder.Services.AddScoped<ShoppingCartRepository>();
 
 builder.Services.AddScoped<VisitorRepository>();
 
+builder.Services.AddScoped<CategoryRepository>();
+
 builder.Services.AddScoped<UnitOfWork>();
 
 

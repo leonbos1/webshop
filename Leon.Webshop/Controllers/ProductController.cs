@@ -21,7 +21,9 @@ namespace Leon.Webshop.Controllers
         {
             var products = await _unitOfWork.ProductRepository.GetAll();
 
-            IndexViewModel viewModel = new IndexViewModel(products);
+            var categories = await _unitOfWork.CategoryRepository.GetAll();
+
+            IndexViewModel viewModel = new IndexViewModel(products, categories);
 
             return View(viewModel);
         }
