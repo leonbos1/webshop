@@ -19,6 +19,13 @@ namespace Leon.Webshop.Data.Repositories
             return products;
         }
 
+        public async Task<List<Product>> GetAllByCategoryId(Guid categoryId)
+        {
+            var products = await _context.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
+
+            return products;
+        }
+
         public async Task<Product> GetById(Guid id)
         {
             var product = await _context.Product.FindAsync(id);

@@ -1,6 +1,5 @@
 ﻿@model Leon.Webshop.Contracts.ViewModels.Products.IndexViewModel
 
-<!--select dropdown with categories-->
 @using (Html.BeginForm("Index", "Product", FormMethod.Get))
 {
     <div class="form-group">
@@ -16,14 +15,28 @@
     </div>
 }
 
-<div class=" flex-md-wrap">
+<div class="row">
     @foreach (var product in Model.Products)
     {
-        <div class="card-body border-1">
-            <h5 class="card-title">@product.Name</h5>
-            <p class="card-text">Price: $@product.Price</p>
-            <p class="card-text">@product.Stock items in stock</p>
-            <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Details</a>
+        <div class="col-md-6">
+            <div class="card-body border-1">
+                <h5 class="card-title">@product.Name</h5>
+                <p class="card-text">Price: $@product.Price</p>
+                <p class="card-text">@product.Stock items in stock</p>
+                <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Details</a>
+            </div>
         </div>
     }
 </div>
+
+<style>
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .col-md-6 {
+        width: 50%;
+        padding: 0 10px;
+    }
+</style>

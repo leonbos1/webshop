@@ -19,11 +19,44 @@ namespace Leon.Webshop.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var products = await _unitOfWork.ProductRepository.GetAll();
+            var categoryId = Request.Query["categoryId"].ToString();
 
-            var categories = await _unitOfWork.CategoryRepository.GetAll();
+            List<Product> products;
 
-            IndexViewModel viewModel = new IndexViewModel(products, categories);
+            List<Category> categories;
+
+            IndexViewModel viewModel;
+
+            if (string.IsNullOrEmpty(categoryId))
+            {
+                products = await _unitOfWork.ProductRepository.GetAll();
+
+                categories = await _unitOfWork.CategoryRepository.GetAll();
+
+                viewModel = new IndexViewModel(products, categories);
+
+                return View(viewModel);
+            }
+
+            var validGuid = Guid.TryParse(categoryId, out Guid guid);
+
+            if (!validGuid)
+            {
+                return NotFound();
+            }
+
+            var category = await _unitOfWork.CategoryRepository.GetById(guid);
+
+            if (category == null && categoryId != string.Empty)
+            {
+                return NotFound();
+            }
+
+            products = await _unitOfWork.ProductRepository.GetAllByCategoryId(Guid.Parse(categoryId));
+
+            categories = await _unitOfWork.CategoryRepository.GetAll();
+
+            viewModel = new IndexViewModel(products, categories);
 
             return View(viewModel);
         }

@@ -18,5 +18,12 @@ namespace Leon.Webshop.Data.Repositories
 
             return categories;
         }
+
+        public async Task<Category> GetById(Guid id)
+        {
+            var category = await _context.Category.FindAsync(id);
+
+            return category;
+        }
     }
 }
