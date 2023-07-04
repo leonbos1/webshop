@@ -17,5 +17,7 @@ namespace Leon.Webshop.Contracts.Models
         public Category? Category { get; set; }
 
         public int Stock { get; set; }
+
+        public List<Discount> Discounts { get; set; } = new List<Discount>();
     }
 }

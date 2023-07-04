@@ -17,4 +17,6 @@ public class ShopContext : DbContext
     public DbSet<ShoppingCart> ShoppingCart { get; set; }
 
     public DbSet<Visitor> Visitor { get; set; }
+
+    public DbSet<Discount> Discount { get; set; }
 }
