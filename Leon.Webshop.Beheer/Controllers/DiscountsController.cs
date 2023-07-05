@@ -10,91 +10,88 @@ using Leon.Webshop.Data;
 
 namespace Leon.Webshop.Beheer.Controllers
 {
-    public class ProductsController : Controller
+    public class DiscountsController : Controller
     {
         private readonly ShopContext _context;
 
-        public ProductsController(ShopContext context)
+        public DiscountsController(ShopContext context)
         {
             _context = context;
         }
 
-        // GET: Products
+        // GET: Discounts
         public async Task<IActionResult> Index()
         {
-            var shopContext = _context.Product.Include(p => p.Category);
-            return View(await shopContext.ToListAsync());
+              return _context.Discount != null ? 
+                          View(await _context.Discount.ToListAsync()) :
+                          Problem("Entity set 'ShopContext.Discount'  is null.");
         }
 
-        // GET: Products/Details/5
+        // GET: Discounts/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Discount == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Category)
+            var discount = await _context.Discount
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (discount == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(discount);
         }
 
-        // GET: Products/Create
+        // GET: Discounts/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name");
             return View();
         }
 
-        // POST: Products/Create
+        // POST: Discounts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Price,Description,CategoryId,Stock")] Product product)
+        public async Task<IActionResult> Create([Bind("Id,Percentage,Amount")] Discount discount)
         {
             if (ModelState.IsValid)
             {
-                product.Id = Guid.NewGuid();
-                _context.Add(product);
+                discount.Id = Guid.NewGuid();
+                _context.Add(discount);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(discount);
         }
 
-        // GET: Products/Edit/5
+        // GET: Discounts/Edit/5
         public async Task<IActionResult> Edit(Guid? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Discount == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product.FindAsync(id);
-            if (product == null)
+            var discount = await _context.Discount.FindAsync(id);
+            if (discount == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(discount);
         }
 
-        // POST: Products/Edit/5
+        // POST: Discounts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Price,Description,CategoryId,Stock")] Product product)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Percentage,Amount")] Discount discount)
         {
-            if (id != product.Id)
+            if (id != discount.Id)
             {
                 return NotFound();
             }
@@ -103,12 +100,12 @@ namespace Leon.Webshop.Beheer.Controllers
             {
                 try
                 {
-                    _context.Update(product);
+                    _context.Update(discount);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProductExists(product.Id))
+                    if (!DiscountExists(discount.Id))
                     {
                         return NotFound();
                     }
@@ -119,51 +116,49 @@ namespace Leon.Webshop.Beheer.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Category, "Id", "Name", product.CategoryId);
-            return View(product);
+            return View(discount);
         }
 
-        // GET: Products/Delete/5
+        // GET: Discounts/Delete/5
         public async Task<IActionResult> Delete(Guid? id)
         {
-            if (id == null || _context.Product == null)
+            if (id == null || _context.Discount == null)
             {
                 return NotFound();
             }
 
-            var product = await _context.Product
-                .Include(p => p.Category)
+            var discount = await _context.Discount
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null)
+            if (discount == null)
             {
                 return NotFound();
             }
 
-            return View(product);
+            return View(discount);
         }
 
-        // POST: Products/Delete/5
+        // POST: Discounts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            if (_context.Product == null)
+            if (_context.Discount == null)
             {
-                return Problem("Entity set 'ShopContext.Product'  is null.");
+                return Problem("Entity set 'ShopContext.Discount'  is null.");
             }
-            var product = await _context.Product.FindAsync(id);
-            if (product != null)
+            var discount = await _context.Discount.FindAsync(id);
+            if (discount != null)
             {
-                _context.Product.Remove(product);
+                _context.Discount.Remove(discount);
             }
             
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ProductExists(Guid id)
+        private bool DiscountExists(Guid id)
         {
-          return (_context.Product?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Discount?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

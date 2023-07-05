@@ -19,7 +19,7 @@ namespace Leon.Webshop.Data.Repositories
 
         public async Task<Discount> GetDiscountByGuid(Guid guid)
         {
-            return await _context.Discount.FirstOrDefaultAsync(d => d.Guid == guid);
+            return await _context.Discount.FirstOrDefaultAsync(d => d.Id == guid);
         }
 
         public async Task<List<Discount>> GetDiscounts()

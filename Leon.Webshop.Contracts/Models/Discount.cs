@@ -8,7 +8,7 @@ namespace Leon.Webshop.Contracts.Models
 {
     public class Discount
     {
-        public Guid Guid { get; set; }
+        public Guid Id { get; set; }
 
         public int Percentage { get; set; }
 
