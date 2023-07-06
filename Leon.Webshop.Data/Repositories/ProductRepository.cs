@@ -16,6 +16,8 @@ namespace Leon.Webshop.Data.Repositories
         {
             var products = await _context.Product.ToListAsync();
 
+            ApplyDiscounts(products);
+
             return products;
         }
 
@@ -23,7 +25,33 @@ namespace Leon.Webshop.Data.Repositories
         {
             var products = await _context.Product.Where(p => p.CategoryId == categoryId).ToListAsync();
 
+            ApplyDiscounts(products);
+
             return products;
+        }
+
+        public void ApplyDiscounts(List<Product> products)
+        {
+            foreach (var product in products)
+            {
+                var discounts = _context.ProductDiscount.Where(d => d.ProductId == product.Id).ToList();
+
+                if (discounts.Count > 0)
+                {
+                    foreach (var discount in discounts)
+                    {
+                        if (discount.Discount.Percentage > 0)
+                        {
+                              product.Price = product.Price - (product.Price * (discount.Discount.Percentage / 100));
+                        }
+
+                        if (discount.Discount.Amount > 0)
+                        {
+                            product.Price = product.Price - discount.Discount.Amount;
+                        }
+                    }
+                }
+            }
         }
 
         public async Task<Product> GetById(Guid id)

@@ -23,6 +23,7 @@ namespace Leon.Webshop.Beheer.Controllers
         public async Task<IActionResult> Index()
         {
             var shopContext = _context.Product.Include(p => p.Category);
+
             return View(await shopContext.ToListAsync());
         }
 

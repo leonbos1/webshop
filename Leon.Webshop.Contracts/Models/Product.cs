@@ -18,6 +18,6 @@ namespace Leon.Webshop.Contracts.Models
 
         public int Stock { get; set; }
 
-        public List<Discount> Discounts { get; set; } = new List<Discount>();
+        public List<ProductDiscount> discounts { get; set; } = new List<ProductDiscount>();
     }
 }

@@ -56,7 +56,7 @@ namespace Leon.Webshop.Beheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Percentage,Amount")] Discount discount)
+        public async Task<IActionResult> Create([Bind("Id,Name,Percentage,Amount")] Discount discount)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +89,7 @@ namespace Leon.Webshop.Beheer.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Percentage,Amount")] Discount discount)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Percentage,Amount")] Discount discount)
         {
             if (id != discount.Id)
             {
