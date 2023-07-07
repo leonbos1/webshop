@@ -1,6 +1,7 @@
 using Leon.Webshop.Data;
 using Leon.Webshop.Data.Repositories;
 using Leon.Webshop.Logic.Helpers;
+using Leon.Webshop.Logic.Services;
 using Leon.Webshop.Services;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,7 +25,7 @@ builder.Services.AddScoped<CategoryRepository>();
 
 builder.Services.AddScoped<UnitOfWork>();
 
-
+builder.Services.AddScoped<DiscountService>();
 
 builder.Services.AddSession(options =>
 {

@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Leon.Webshop.Contracts\Leon.Webshop.Contracts.csproj" />
+    <ProjectReference Include="..\Leon.Webshop.Contracts\Leon.Webshop.Logic.csproj" />
   </ItemGroup>
 
   <ItemGroup>
