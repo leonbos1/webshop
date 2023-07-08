@@ -5,17 +5,19 @@ VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leon.Webshop", "Leon.Webshop.csproj", "{AB716668-91E5-4E79-B6E5-333A27746F0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Contracts", "..\Leon.Webshop.Contracts\Leon.Webshop.Contracts.csproj", "{E96D6E97-65E4-4413-88E4-CB936123FED4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leon.Webshop.Contracts", "..\Leon.Webshop.Contracts\Leon.Webshop.Contracts.csproj", "{E96D6E97-65E4-4413-88E4-CB936123FED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Data", "..\Leon.Webshop.Data\Leon.Webshop.Data.csproj", "{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leon.Webshop.Data", "..\Leon.Webshop.Data\Leon.Webshop.Data.csproj", "{05C34C0E-4901-43AE-BCE2-067C8F5F4C96}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Logic", "..\Leon.Webshop.Logic\Leon.Webshop.Logic.csproj", "{745375B7-2BAD-4ADA-B606-728F9FE4B64E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leon.Webshop.Logic", "..\Leon.Webshop.Logic\Leon.Webshop.Logic.csproj", "{745375B7-2BAD-4ADA-B606-728F9FE4B64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Beheer", "..\Leon.Webshop.Beheer\Leon.Webshop.Beheer.csproj", "{E3EE002A-5CF8-4AEC-99F8-E43B8FC24027}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Leon.Webshop.Beheer", "..\Leon.Webshop.Beheer\Leon.Webshop.Beheer.csproj", "{E3EE002A-5CF8-4AEC-99F8-E43B8FC24027}"
 	ProjectSection(ProjectDependencies) = postProject
 		{05C34C0E-4901-43AE-BCE2-067C8F5F4C96} = {05C34C0E-4901-43AE-BCE2-067C8F5F4C96}
 		{E96D6E97-65E4-4413-88E4-CB936123FED4} = {E96D6E97-65E4-4413-88E4-CB936123FED4}
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leon.Webshop.Calculator", "..\Leon.Webshop.Calculator\Leon.Webshop.Calculator.csproj", "{8B877230-935D-4146-A97F-1E6C02FD069D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +45,10 @@ Global
 		{E3EE002A-5CF8-4AEC-99F8-E43B8FC24027}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E3EE002A-5CF8-4AEC-99F8-E43B8FC24027}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E3EE002A-5CF8-4AEC-99F8-E43B8FC24027}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B877230-935D-4146-A97F-1E6C02FD069D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B877230-935D-4146-A97F-1E6C02FD069D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B877230-935D-4146-A97F-1E6C02FD069D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B877230-935D-4146-A97F-1E6C02FD069D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
