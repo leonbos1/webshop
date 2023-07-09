@@ -1,5 +1,10 @@
 ﻿using Leon.Webshop.Contracts.Models;
 using Leon.Webshop.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Leon.Webshop.Logic.Services
 {
@@ -12,29 +17,39 @@ namespace Leon.Webshop.Logic.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task ApplyDiscounts(List<Product> products)
+        public async Task ApplyDiscount(List<Product> products)
         {
+            var productDiscounts = await _unitOfWork.DiscountProductRepository.GetAll();
+            var discounts = await _unitOfWork.DiscountRepository.GetAll();
+
             foreach (var product in products)
             {
-                var discounts = await _unitOfWork.DiscountProductRepository.GetAllByProductId(product.Id);
+                var applicableDiscounts = GetApplicableDiscounts(productDiscounts, discounts, product.Id);
 
-                if (discounts.Count > 0)
+                foreach (var discount in applicableDiscounts)
                 {
-                    foreach (var discount in discounts)
-                    {
-                        discount.Discount = await _unitOfWork.DiscountRepository.GetById(discount.DiscountId);
-
-                        if (discount.Discount.Percentage > 0)
-                        {
-                            product.Price = product.Price - (product.Price * (discount.Discount.Percentage / 100));
-                        }
-
-                        if (discount.Discount.Amount > 0)
-                        {
-                            product.Price = product.Price - discount.Discount.Amount;
-                        }
-                    }
+                    ApplyDiscountToProduct(product, discount);
                 }
+            }
+        }
+
+        private IEnumerable<Discount> GetApplicableDiscounts(IEnumerable<ProductDiscount> productDiscounts, IEnumerable<Discount> discounts, Guid productId)
+        {
+            return productDiscounts
+                .Where(x => x.ProductId == productId)
+                .Join(discounts, pd => pd.DiscountId, d => d.Id, (pd, d) => d);
+        }
+
+        private void ApplyDiscountToProduct(Product product, Discount discount)
+        {
+            if (discount.Percentage > 0)
+            {
+                product.Price -= (product.Price * (discount.Percentage / 100));
+            }
+
+            if (discount.Amount > 0)
+            {
+                product.Price -= discount.Amount;
             }
         }
     }

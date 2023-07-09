@@ -3,6 +3,7 @@ using Leon.Webshop.Services;
 using Leon.Webshop.Contracts.ViewModels.Products;
 using Microsoft.AspNetCore.Mvc;
 using Leon.Webshop.Logic.Helpers;
+using Leon.Webshop.Logic.Services;
 
 namespace Leon.Webshop.Controllers
 {
@@ -10,11 +11,13 @@ namespace Leon.Webshop.Controllers
     {
         UnitOfWork _unitOfWork;
         VisitorService _visitorService;
+        ProductService _productService;
 
-        public ProductController(UnitOfWork unitOfWork, VisitorService visitorService)
+        public ProductController(UnitOfWork unitOfWork, VisitorService visitorService, ProductService productService)
         {
             _unitOfWork = unitOfWork;
             _visitorService = visitorService;
+            _productService = productService;
         }
 
         public async Task<IActionResult> Index()
@@ -29,7 +32,7 @@ namespace Leon.Webshop.Controllers
 
             if (string.IsNullOrEmpty(categoryId))
             {
-                products = await _unitOfWork.ProductRepository.GetAll();
+                products = await _productService.GetProducts();
 
                 categories = await _unitOfWork.CategoryRepository.GetAll();
 
@@ -52,7 +55,9 @@ namespace Leon.Webshop.Controllers
                 return NotFound();
             }
 
-            products = await _unitOfWork.ProductRepository.GetAllByCategoryId(Guid.Parse(categoryId));
+            var allProducts = await _productService.GetProducts();
+
+            products = allProducts.Where(x => x.CategoryId == guid).ToList();
 
             categories = await _unitOfWork.CategoryRepository.GetAll();
 
@@ -63,7 +68,7 @@ namespace Leon.Webshop.Controllers
 
         public async Task<IActionResult> Details(Guid id)
         {
-            var product = await _unitOfWork.ProductRepository.GetById(id);
+            var product = await _productService.GetProductById(id);
 
             DetailsViewModel viewModel = new DetailsViewModel(product);
 
@@ -72,7 +77,7 @@ namespace Leon.Webshop.Controllers
 
         public async Task<IActionResult> Buy(Guid id)
         {
-            var product = await _unitOfWork.ProductRepository.GetById(id);
+            var product = await _productService.GetProductById(id);
 
             if (product == null)
             {

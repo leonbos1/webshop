@@ -6,7 +6,7 @@
 
         public string? Name { get; set; }
 
-        public int Percentage { get; set; }
+        public decimal Percentage { get; set; }
 
         public decimal Amount { get; set; }
     }

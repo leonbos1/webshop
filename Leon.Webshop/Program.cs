@@ -23,9 +23,15 @@ builder.Services.AddScoped<VisitorRepository>();
 
 builder.Services.AddScoped<CategoryRepository>();
 
+builder.Services.AddScoped<DiscountRepository>();
+
+builder.Services.AddScoped<DiscountProductRepository>();
+
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddScoped<DiscountService>();
+
+builder.Services.AddScoped<ProductService>();
 
 builder.Services.AddSession(options =>
 {

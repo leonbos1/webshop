@@ -23,5 +23,12 @@ namespace Leon.Webshop.Data.Repositories
 
             return discounts;
         }
+
+        public async Task<List<ProductDiscount>> GetAll()
+        {
+            var discounts = await _context.ProductDiscount.ToListAsync();
+
+            return discounts;
+        }
     }
 }
