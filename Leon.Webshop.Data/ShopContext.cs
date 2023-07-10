@@ -21,4 +21,6 @@ public class ShopContext : DbContext
     public DbSet<Discount> Discount { get; set; }
 
     public DbSet<ProductDiscount> ProductDiscount { get; set; }
+
+    public DbSet<Sale> Sale { get; set; }
 }

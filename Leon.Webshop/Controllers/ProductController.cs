@@ -12,12 +12,14 @@ namespace Leon.Webshop.Controllers
         UnitOfWork _unitOfWork;
         VisitorService _visitorService;
         ProductService _productService;
+        SalesService _salesService;
 
-        public ProductController(UnitOfWork unitOfWork, VisitorService visitorService, ProductService productService)
+        public ProductController(UnitOfWork unitOfWork, VisitorService visitorService, ProductService productService, SalesService salesService)
         {
             _unitOfWork = unitOfWork;
             _visitorService = visitorService;
             _productService = productService;
+            _salesService = salesService;
         }
 
         public async Task<IActionResult> Index()
@@ -116,6 +118,8 @@ namespace Leon.Webshop.Controllers
             }
 
             product.Stock--;
+
+            await _salesService.BuyProduct(product, visitor);
 
             await _unitOfWork.ProductRepository.Update(product);
 

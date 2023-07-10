@@ -13,8 +13,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<ShopContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<VisitorService>();
-
 builder.Services.AddScoped<ProductRepository>();
 
 builder.Services.AddScoped<ShoppingCartRepository>();
@@ -27,11 +25,17 @@ builder.Services.AddScoped<DiscountRepository>();
 
 builder.Services.AddScoped<DiscountProductRepository>();
 
+builder.Services.AddScoped<SalesRepository>();
+
 builder.Services.AddScoped<UnitOfWork>();
 
 builder.Services.AddScoped<DiscountService>();
 
 builder.Services.AddScoped<ProductService>();
+
+builder.Services.AddScoped<VisitorService>();
+
+builder.Services.AddScoped<SalesService>();
 
 builder.Services.AddSession(options =>
 {
