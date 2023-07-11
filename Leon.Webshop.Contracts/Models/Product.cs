@@ -10,6 +10,8 @@ namespace Leon.Webshop.Contracts.Models
 
         public decimal Price { get; set; }
 
+        public decimal FinalPrice = 0;
+
         public string? Description { get; set; }
 
         public Guid? CategoryId { get; set; }

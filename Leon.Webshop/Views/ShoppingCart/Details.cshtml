@@ -19,6 +19,7 @@
             <dd>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </dd>
+            <a href="@Url.Action("BuyProduct", "ShoppingCart" , new { productId = item.ProductId } )" class="btn btn-primary">Buy</a>
         </dl>
     </div>
 }

@@ -11,10 +11,11 @@ namespace Leon.Webshop.Data.Repositories
             _context = context;
         }
 
-        public void AddSale(Sale sale)
+        public async Task AddSale(Sale sale)
         {
             _context.Sale.Add(sale);
-            _context.SaveChanges();
+
+            await _context.SaveChangesAsync();
         }
     }
 }

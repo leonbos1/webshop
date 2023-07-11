@@ -21,7 +21,7 @@
         <div class="col-md-6">
             <div class="card-body border-1">
                 <h5 class="card-title">@product.Name</h5>
-                <p class="card-text">Price: $@product.Price</p>
+                <p class="card-text">Price: $@product.FinalPrice</p>
                 <p class="card-text">@product.Stock items in stock</p>
                 <a href="@Url.Action("Details", "Product", new { id = product.Id })" class="btn btn-primary">Details</a>
             </div>

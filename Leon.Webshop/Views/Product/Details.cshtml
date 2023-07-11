@@ -3,7 +3,8 @@
 <div class="card-body">
     <h5 class="card-title">@Model.Product.Name</h5>
     <p class="card-text">@Model.Product.Description</p>
-    <p class="card-text">Price: $@Model.Product.Price</p>
+    <p class="card-text">Price: $@Model.Product.FinalPrice</p>
     <p class="card-text">Category: @Model.Product.Category?.Name</p>
-    <a href="@Url.Action("Buy", "Product" , new { id = Model.Product.Id })" class="btn btn-primary">Buy</a>
+    <a href="@Url.Action("AddToShoppingCart", "Product" , new { id = Model.Product.Id })" class="btn btn-primary">Add to cart</a>
     <a href="@Url.Action("Index", "Product")" class="btn btn-primary">Back</a>
+</div>

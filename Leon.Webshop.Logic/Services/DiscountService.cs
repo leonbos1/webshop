@@ -19,6 +19,12 @@ namespace Leon.Webshop.Logic.Services
 
         public async Task ApplyDiscount(List<Product> products)
         {
+            if (products == null || !products.Any())
+                return;
+
+            if (products[0].FinalPrice != 0)
+                return;
+
             var productDiscounts = await _unitOfWork.DiscountProductRepository.GetAll();
             var discounts = await _unitOfWork.DiscountRepository.GetAll();
 
@@ -28,7 +34,12 @@ namespace Leon.Webshop.Logic.Services
 
                 foreach (var discount in applicableDiscounts)
                 {
-                    ApplyDiscountToProduct(product, discount);
+                    await ApplyDiscountToProduct(product, discount);
+                }
+
+                if (product.FinalPrice == 0)
+                {
+                    product.FinalPrice = product.Price;
                 }
             }
         }
@@ -40,17 +51,21 @@ namespace Leon.Webshop.Logic.Services
                 .Join(discounts, pd => pd.DiscountId, d => d.Id, (pd, d) => d);
         }
 
-        private void ApplyDiscountToProduct(Product product, Discount discount)
+        private async Task ApplyDiscountToProduct(Product product, Discount discount)
         {
+            var currentPrice = product.FinalPrice == 0 ? product.FinalPrice : product.Price;
+
             if (discount.Percentage > 0)
             {
-                product.Price -= (product.Price * (discount.Percentage / 100));
+                product.FinalPrice = currentPrice - (currentPrice * discount.Percentage / 100);
             }
 
             if (discount.Amount > 0)
             {
-                product.Price -= discount.Amount;
+                product.FinalPrice = currentPrice - discount.Amount;
             }
+            
+            await _unitOfWork.ProductRepository.Update(product);
         }
     }
 }

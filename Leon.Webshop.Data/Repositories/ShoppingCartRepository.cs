@@ -85,5 +85,12 @@ namespace Leon.Webshop.Data.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task Delete(ShoppingCart shoppingCart)
+        {
+            _context.ShoppingCart.Remove(shoppingCart);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

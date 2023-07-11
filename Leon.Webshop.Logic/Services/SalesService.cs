@@ -1,5 +1,6 @@
 ﻿using Leon.Webshop.Contracts.Models;
 using Leon.Webshop.Data.Repositories;
+using Leon.Webshop.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,15 +11,22 @@ namespace Leon.Webshop.Logic.Services
 {
     public class SalesService
     {
-        private readonly SalesRepository _salesRepository;
+        private readonly UnitOfWork _uow;
 
-        public SalesService(SalesRepository salesRepository)
+
+        public SalesService(UnitOfWork unitOfWork)
         {
-            _salesRepository = salesRepository;
+            _uow = unitOfWork;
         }
 
-        public async Task BuyProduct(Product product, Visitor visitor)
+        public async Task BuyProduct(Product product, Visitor visitor, ShoppingCart shoppingCart)
         {
+            product.Stock--;
+
+            await _uow.ProductRepository.Update(product);
+
+            await _uow.ShoppingCartRepository.Delete(shoppingCart);
+
             var sale = new Sale
             {
                 ProductId = product.Id,
@@ -26,7 +34,7 @@ namespace Leon.Webshop.Logic.Services
                 Created = DateTime.Now
             };
 
-            _salesRepository.AddSale(sale);
+            await _uow.SalesRepository.AddSale(sale);
         }
     }
 }

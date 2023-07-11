@@ -77,7 +77,7 @@ namespace Leon.Webshop.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Buy(Guid id)
+        public async Task<IActionResult> AddToShoppingCart(Guid id)
         {
             var product = await _productService.GetProductById(id);
 
@@ -116,12 +116,6 @@ namespace Leon.Webshop.Controllers
 
                 await _unitOfWork.ShoppingCartRepository.Update(shoppingCart);
             }
-
-            product.Stock--;
-
-            await _salesService.BuyProduct(product, visitor);
-
-            await _unitOfWork.ProductRepository.Update(product);
 
             return RedirectToAction("Index");
         }
