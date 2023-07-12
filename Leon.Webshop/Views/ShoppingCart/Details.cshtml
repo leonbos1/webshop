@@ -19,7 +19,8 @@
             <dd>
                 @Html.DisplayFor(modelItem => item.Quantity)
             </dd>
-            <a href="@Url.Action("BuyProduct", "ShoppingCart" , new { productId = item.ProductId } )" class="btn btn-primary">Buy</a>
         </dl>
+        <a href="@Url.Action("BuyProduct", "ShoppingCart" , new { productId = item.ProductId } )" class="btn btn-primary">Buy</a>
+        <a href="@Url.Action("RemoveProduct", "ShoppingCart" , new { productId = item.ProductId } )" class="btn btn-danger">Remove from cart</a>
     </div>
 }

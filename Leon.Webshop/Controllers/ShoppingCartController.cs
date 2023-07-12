@@ -47,5 +47,22 @@ namespace Leon.Webshop.Controllers
             
             return RedirectToAction("Details");
         }
+
+        public async Task<IActionResult> RemoveProduct(Guid productId)
+        {
+            var sessionId = HttpContext.Session.Id;
+
+            var visitor = await _visitorService.GetVisitor(sessionId);
+
+            var product = await _unitOfWork.ProductRepository.GetById(productId);
+
+            var shoppingCart = await _unitOfWork.ShoppingCartRepository.GetByVisitorAndProduct(visitor, product);
+
+            if (shoppingCart == null) return RedirectToAction("Details");
+
+            await _unitOfWork.ShoppingCartRepository.Delete(shoppingCart);
+
+            return RedirectToAction("Details");
+        }
     }
 }
